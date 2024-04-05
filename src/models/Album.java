@@ -14,9 +14,9 @@ public class Album {
     public Album(String nome, String artista, int anoLancamento, List<Musica> musicas) {
         this.nome = nome;
         this.artista = artista;
-        this.anoLancamento = anoLancamento;
-        this.duracao = duracao;
+        this.setAnoLancamento(anoLancamento);
         this.musicas = musicas;
+        calcularDuracao();
     }
 
     public String getNome() {
@@ -40,6 +40,10 @@ public class Album {
     }
 
     public void setAnoLancamento(int anoLancamento) {
+        if(anoLancamento <= 0){
+            System.out.println("O ano de lançamento não pode ser menor ou igual a zero!");
+            return;
+        }
         this.anoLancamento = anoLancamento;
     }
 
@@ -52,7 +56,26 @@ public class Album {
     }
 
     public void setMusicas(List<Musica> musicas) {
+
         this.musicas = musicas;
+        for (Musica musica: musicas){
+            duracao += musica.getDuracao();
+        }
+    }
+    public void calcularDuracao(){
+        for(Musica musica : this.musicas){
+            duracao += musica.getDuracao();
+        }
+    }
+
+    public void adicionarMusica(Musica musica){
+        musicas.add(musica);
+        duracao +=musica.getDuracao();
+    }
+
+    public void removerMusica(Musica musica){
+        musicas.remove(musica);
+        duracao -= musica.getDuracao();
     }
 
     @Override
